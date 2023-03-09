@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword, // New sign in with pw and email
   signInWithEmailAndPassword, // sign in with pw and email
   GoogleAuthProvider, // Auth from Google
+  GithubAuthProvider, // Auth from Github
   signInWithPopup, // 1st way of signing in
   signInWithRedirect, // 2nd way of signing in
   signOut, // sign-out function
@@ -37,6 +38,12 @@ function SignInContextProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  // 5. Sign in with Github
+  const signInWithGithub = () => {
+    const provider = new GithubAuthProvider();
+    signInWithRedirect(auth, provider);
+  };
+
   // 5. Sign out
   const signout = () => {
     signOut(auth);
@@ -57,6 +64,7 @@ function SignInContextProvider({ children }) {
     user,
     googleSigninWithPopout,
     googleSigninWithRedirect,
+    signInWithGithub,
     createUserWithPwAndEmail,
     signInUserWithPwAndEmail,
     signout,

@@ -9,6 +9,7 @@ function SigninForm() {
   const [form, setForm] = useState({ email: '', password: '' });
   const {
     googleSigninWithRedirect,
+    signInWithGithub,
     googleSigninWithPopout,
     signInUserWithPwAndEmail,
   } = useSignInGlobalContext();
@@ -34,6 +35,16 @@ function SigninForm() {
   const googleSignIn = async () => {
     try {
       const response = await googleSigninWithPopout();
+      console.log(response);
+      redirect('/account');
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const gitHubSignIn = async () => {
+    try {
+      const response = await signInWithGithub();
       console.log(response);
       redirect('/account');
     } catch (err) {
@@ -81,7 +92,10 @@ function SigninForm() {
       </form>
       <div className="flex flex-col justify-center items-center">
         <GoogleButton onClick={googleSignIn} />
-        <div className="flex justify-start w-[240px] h-[50px] rounded-sm bg-black mt-2 cursor-pointer text-white space-x-6">
+        <div
+          onClick={gitHubSignIn}
+          className="flex justify-start w-[240px] h-[50px] rounded-sm bg-black mt-2 cursor-pointer text-white space-x-6"
+        >
           <FaGithubSquare color={'white'} size={50} />
           <div className="flex justify-center items-center">
             <p>Sign in with Github</p>
