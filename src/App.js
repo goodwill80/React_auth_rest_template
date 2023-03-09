@@ -8,6 +8,7 @@ import ProductPage from './Pages/ProductPage';
 import SignupPage from './Pages/SignupPage';
 import AccountPage from './Pages/AccountPage';
 import AddProductPage from './Pages/AddProductPage';
+import EditProductPage from './Pages/EditProductPage';
 import ProtectedRoute from './Auth/ProtectedRoutes';
 
 function App() {
@@ -26,6 +27,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <AddProductPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/product/edit/:id"
+              element={
+                <ProtectedRoute>
+                  <EditProductPage />
                 </ProtectedRoute>
               }
             />

@@ -48,17 +48,19 @@ function Navbar() {
               <div onClick={logout}>
                 <Link>Log out</Link>
               </div>
-
-              <div className="relative">
-                <RiShoppingCartLine size={25} />
-                <div className="bg-green-600 absolute rounded-xl px-2 py-1 top-0 left-5">
-                  <p className="text-white text-xs">0</p>
-                </div>
-              </div>
             </>
           ) : (
-            <Link to="/signup">Sign up</Link>
+            <>
+              <Link to="/signup">Sign up</Link>
+              <Link to="/">Log in</Link>
+            </>
           )}
+          <div className="relative">
+            <RiShoppingCartLine size={25} />
+            <div className="bg-green-600 absolute rounded-xl px-2 py-1 top-0 left-5">
+              <p className="text-white text-xs">0</p>
+            </div>
+          </div>
         </div>
       </div>
     </nav>

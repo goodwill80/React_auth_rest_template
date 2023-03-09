@@ -6,12 +6,12 @@ import { getAuth } from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: '',
+  apiKey: '<YOUR FIREBASE API KEY>',
   authDomain: 'redux-with-auth.firebaseapp.com',
   projectId: 'redux-with-auth',
   storageBucket: 'redux-with-auth.appspot.com',
   messagingSenderId: '642049680847',
-  appId: '',
+  appId: '<FIREBASE APP ID>',
 };
 
 // Initialize Firebase
