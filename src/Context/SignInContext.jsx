@@ -1,5 +1,7 @@
 import { useContext, createContext, useState, useEffect } from 'react';
 import {
+  createUserWithEmailAndPassword, // New sign in with pw and email
+  signInWithEmailAndPassword, // sign in with pw and email
   GoogleAuthProvider, // Auth from Google
   signInWithPopup, // 1st way of signing in
   signInWithRedirect, // 2nd way of signing in
@@ -25,7 +27,17 @@ function SignInContextProvider({ children }) {
     signInWithRedirect(auth, provider);
   };
 
-  // 3. Sign out of Google
+  // 3. Sign up with normal email and password
+  const createUserWithPwAndEmail = (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  // 4. Sign in user with normal email and password
+  const signInUserWithPwAndEmail = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  // 5. Sign out
   const signout = () => {
     signOut(auth);
   };
@@ -45,6 +57,8 @@ function SignInContextProvider({ children }) {
     user,
     googleSigninWithPopout,
     googleSigninWithRedirect,
+    createUserWithPwAndEmail,
+    signInUserWithPwAndEmail,
     signout,
   };
 

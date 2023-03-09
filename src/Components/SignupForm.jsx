@@ -1,15 +1,28 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useSignInGlobalContext } from '../Context/SignInContext';
 
 function SignupForm() {
+  const redirect = useNavigate();
+  const { createUserWithPwAndEmail } = useSignInGlobalContext();
   const [form, setForm] = useState({ email: '', password: '' });
 
   const onChangeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
+    try {
+      const response = await createUserWithPwAndEmail(
+        form.email,
+        form.password
+      );
+      console.log(response);
+      redirect('/');
+    } catch (err) {
+      console.log(err.message);
+    }
   };
   return (
     <>

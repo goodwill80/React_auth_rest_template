@@ -7,8 +7,11 @@ import { useSignInGlobalContext } from '../Context/SignInContext';
 function SigninForm() {
   const redirect = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
-  const { googleSigninWithRedirect, googleSigninWithPopout } =
-    useSignInGlobalContext();
+  const {
+    googleSigninWithRedirect,
+    googleSigninWithPopout,
+    signInUserWithPwAndEmail,
+  } = useSignInGlobalContext();
 
   const onChangeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -16,6 +19,16 @@ function SigninForm() {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    try {
+      const response = await signInUserWithPwAndEmail(
+        form.email,
+        form.password
+      );
+      console.log(response);
+      redirect('/account');
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   const googleSignIn = async () => {
