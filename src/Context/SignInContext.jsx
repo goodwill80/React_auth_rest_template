@@ -8,10 +8,10 @@ import {
 } from 'firebase/auth';
 import { auth } from '../Configuraation/Firebase'; // Instance of FB config with your credentials from firebase file - in gitignore
 
-const googleContext = createContext();
+const SigninContext = createContext();
 
-function GoogleSignInContextProvider({ children }) {
-  const [googleUser, setGoogleUser] = useState({});
+function SignInContextProvider({ children }) {
+  const [user, setUser] = useState({});
 
   // 1. Sign in with Google Popout
   const googleSigninWithPopout = () => {
@@ -26,13 +26,13 @@ function GoogleSignInContextProvider({ children }) {
   };
 
   // 3. Sign out of Google
-  const googleSignout = () => {
+  const signout = () => {
     signOut(auth);
   };
 
   useEffect(() => {
     const subcribe = onAuthStateChanged(auth, (currentUser) => {
-      setGoogleUser(currentUser);
+      setUser(currentUser);
       console.log(currentUser);
     });
     // unsubcribe
@@ -42,17 +42,17 @@ function GoogleSignInContextProvider({ children }) {
   }, []);
 
   const ctx = {
-    googleUser,
+    user,
     googleSigninWithPopout,
     googleSigninWithRedirect,
-    googleSignout,
+    signout,
   };
 
   return (
-    <googleContext.Provider value={ctx}>{children}</googleContext.Provider>
+    <SigninContext.Provider value={ctx}>{children}</SigninContext.Provider>
   );
 }
 
-export const useGoogleSignInGlobalContext = () => useContext(googleContext);
+export const useSignInGlobalContext = () => useContext(SigninContext);
 
-export default GoogleSignInContextProvider;
+export default SignInContextProvider;

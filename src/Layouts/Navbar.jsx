@@ -1,9 +1,24 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { GiBeech } from 'react-icons/gi';
 import { RiShoppingCartLine } from 'react-icons/ri';
 
+import { useSignInGlobalContext } from '../Context/SignInContext';
+
 function Navbar() {
+  const redirect = useNavigate();
+  const { signout } = useSignInGlobalContext();
+
+  const logout = async () => {
+    try {
+      const response = await signout();
+      console.log(response);
+      redirect('/');
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   return (
     <nav className="sticky top-0 z-20 bg-gray-100 shadow-xl w-full py-7 px-10">
       <div className="flex justify-between items-center">
@@ -28,7 +43,10 @@ function Navbar() {
         <div className="flex justify-center items-center space-x-4 font-medium">
           <Link to="/signup">Sign up</Link>
           <Link to="/account">Account</Link>
-          <Link>Log out</Link>
+          <div onClick={logout}>
+            <Link>Log out</Link>
+          </div>
+
           <div className="relative">
             <RiShoppingCartLine size={25} />
             <div className="bg-green-600 absolute rounded-xl px-2 py-1 top-0 left-5">

@@ -1,12 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { GoogleButton } from 'react-google-button';
 import { FaGithubSquare } from 'react-icons/fa';
-import { useGoogleSignInGlobalContext } from '../Context/Google_signin_context';
+import { useSignInGlobalContext } from '../Context/SignInContext';
 
 function SigninForm() {
+  const redirect = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
-  const { googleSigninWithRedirect } = useGoogleSignInGlobalContext();
+  const { googleSigninWithRedirect, googleSigninWithPopout } =
+    useSignInGlobalContext();
 
   const onChangeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,8 +20,9 @@ function SigninForm() {
 
   const googleSignIn = async () => {
     try {
-      const response = await googleSigninWithRedirect();
+      const response = await googleSigninWithPopout();
       console.log(response);
+      redirect('/account');
     } catch (err) {
       console.log(err.message);
     }

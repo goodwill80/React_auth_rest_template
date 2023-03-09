@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
-import GoogleSignInContextProvider from './Context/Google_signin_context';
+import SignInContextProvider from './Context/SignInContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <GoogleSignInContextProvider>
+    <SignInContextProvider>
       <App />
-    </GoogleSignInContextProvider>
+    </SignInContextProvider>
   </React.StrictMode>
 );
