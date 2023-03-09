@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GoogleButton } from 'react-google-button';
 import { FaGithubSquare } from 'react-icons/fa';
 import { useSignInGlobalContext } from '../Context/SignInContext';
@@ -8,7 +8,8 @@ function SigninForm() {
   const redirect = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
   const {
-    googleSigninWithRedirect,
+    // googleSigninWithRedirect,
+    user,
     signInWithGithub,
     googleSigninWithPopout,
     signInUserWithPwAndEmail,
@@ -26,7 +27,6 @@ function SigninForm() {
         form.password
       );
       console.log(response);
-      redirect('/account');
     } catch (err) {
       console.log(err.message);
     }
@@ -46,11 +46,18 @@ function SigninForm() {
     try {
       const response = await signInWithGithub();
       console.log(response);
-      redirect('/account');
     } catch (err) {
       console.log(err.message);
     }
   };
+
+  // We cannot place redirect in the handle signin, as page will redirect even before google redirect back
+  // Therefore, we need to use a listener aka useEffect to redirect to account upon user info is set in memory.
+  useEffect(() => {
+    if (user !== null) {
+      redirect('/account');
+    }
+  }, [user]);
 
   return (
     <div className="max-w-[700px] mx-auto">

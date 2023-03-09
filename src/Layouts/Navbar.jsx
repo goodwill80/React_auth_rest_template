@@ -7,7 +7,7 @@ import { useSignInGlobalContext } from '../Context/SignInContext';
 
 function Navbar() {
   const redirect = useNavigate();
-  const { signout } = useSignInGlobalContext();
+  const { signout, user } = useSignInGlobalContext();
 
   const logout = async () => {
     try {
@@ -41,18 +41,24 @@ function Navbar() {
         </div>
         {/* MENU */}
         <div className="flex justify-center items-center space-x-4 font-medium">
-          <Link to="/signup">Sign up</Link>
-          <Link to="/account">Account</Link>
-          <div onClick={logout}>
-            <Link>Log out</Link>
-          </div>
+          {user ? (
+            <>
+              <Link to="/newproduct">Add product</Link>
+              <Link to="/account">Account</Link>
+              <div onClick={logout}>
+                <Link>Log out</Link>
+              </div>
 
-          <div className="relative">
-            <RiShoppingCartLine size={25} />
-            <div className="bg-green-600 absolute rounded-xl px-2 py-1 top-0 left-5">
-              <p className="text-white text-xs">0</p>
-            </div>
-          </div>
+              <div className="relative">
+                <RiShoppingCartLine size={25} />
+                <div className="bg-green-600 absolute rounded-xl px-2 py-1 top-0 left-5">
+                  <p className="text-white text-xs">0</p>
+                </div>
+              </div>
+            </>
+          ) : (
+            <Link to="/signup">Sign up</Link>
+          )}
         </div>
       </div>
     </nav>

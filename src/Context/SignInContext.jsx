@@ -41,7 +41,7 @@ function SignInContextProvider({ children }) {
   // 5. Sign in with Github
   const signInWithGithub = () => {
     const provider = new GithubAuthProvider();
-    signInWithRedirect(auth, provider);
+    signInWithPopup(auth, provider);
   };
 
   // 5. Sign out
