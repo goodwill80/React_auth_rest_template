@@ -1,6 +1,6 @@
 import { useContext, createContext, useState, useEffect } from 'react';
 import {
-  createUserWithEmailAndPassword, // New sign in with pw and email
+  createUserWithEmailAndPassword, // New account creation with pw and email
   signInWithEmailAndPassword, // sign in with pw and email
   GoogleAuthProvider, // Auth from Google
   GithubAuthProvider, // Auth from Github
@@ -44,7 +44,7 @@ function SignInContextProvider({ children }) {
     signInWithPopup(auth, provider);
   };
 
-  // 5. Sign out
+  // 6. Sign out
   const signout = () => {
     signOut(auth);
   };

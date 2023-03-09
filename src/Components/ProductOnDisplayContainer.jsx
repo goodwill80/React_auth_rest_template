@@ -1,7 +1,7 @@
 import ProductOnDisplayItem from './ProductOnDisplayItem';
 import products from '../SeedData';
 
-function ProductOneDisplayContainer() {
+function ProductOnDisplayContainer() {
   return (
     <div className="pb-16">
       <div className="grid md:grid-cols-2 md:gap-2">
@@ -20,4 +20,4 @@ function ProductOneDisplayContainer() {
   );
 }
 
-export default ProductOneDisplayContainer;
+export default ProductOnDisplayContainer;

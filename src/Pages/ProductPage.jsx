@@ -1,4 +1,4 @@
-import ProductOneDisplayContainer from '../Components/ProductOneDisplayContainer';
+import ProductOnDisplayContainer from '../Components/ProductOnDisplayContainer';
 function ProductPage() {
   return (
     <>
@@ -8,7 +8,7 @@ function ProductPage() {
             Our Products
           </h1>
         </div>
-        <ProductOneDisplayContainer />
+        <ProductOnDisplayContainer />
       </div>
     </>
   );
