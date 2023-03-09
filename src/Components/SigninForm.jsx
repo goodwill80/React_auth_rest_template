@@ -2,16 +2,27 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { GoogleButton } from 'react-google-button';
 import { FaGithubSquare } from 'react-icons/fa';
+import { useGoogleSignInGlobalContext } from '../Context/Google_signin_context';
 
 function SigninForm() {
   const [form, setForm] = useState({ email: '', password: '' });
+  const { googleSigninWithRedirect } = useGoogleSignInGlobalContext();
 
   const onChangeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
+  };
+
+  const googleSignIn = async () => {
+    try {
+      const response = await googleSigninWithRedirect();
+      console.log(response);
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   return (
@@ -53,7 +64,7 @@ function SigninForm() {
         </button>
       </form>
       <div className="flex flex-col justify-center items-center">
-        <GoogleButton />
+        <GoogleButton onClick={googleSignIn} />
         <div className="flex justify-start w-[240px] h-[50px] rounded-sm bg-black mt-2 cursor-pointer text-white space-x-6">
           <FaGithubSquare color={'white'} size={50} />
           <div className="flex justify-center items-center">

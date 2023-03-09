@@ -16,19 +16,19 @@ function GoogleSignInContextProvider({ children }) {
   // 1. Sign in with Google Popout
   const googleSigninWithPopout = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(provider);
+    signInWithPopup(auth, provider);
   };
 
   // 2. Sign in with Google Redirect
   const googleSigninWithRedirect = () => {
     const provider = new GoogleAuthProvider();
-    signInWithRedirect(provider);
+    signInWithRedirect(auth, provider);
   };
 
   // 3. Sign out of Google
   const googleSignout = () => {
-    
-  }
+    signOut(auth);
+  };
 
   useEffect(() => {
     const subcribe = onAuthStateChanged(auth, (currentUser) => {
@@ -45,6 +45,7 @@ function GoogleSignInContextProvider({ children }) {
     googleUser,
     googleSigninWithPopout,
     googleSigninWithRedirect,
+    googleSignout,
   };
 
   return (
