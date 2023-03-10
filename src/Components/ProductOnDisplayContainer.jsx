@@ -1,7 +1,9 @@
 import ProductOnDisplayItem from './ProductOnDisplayItem';
 import products from '../SeedData';
+import { useSignInGlobalContext } from '../Context/SignInContext';
 
 function ProductOnDisplayContainer() {
+  const { products } = useSignInGlobalContext();
   return (
     <div className="pb-16">
       <div className="grid md:grid-cols-2 md:gap-2">
@@ -11,7 +13,7 @@ function ProductOnDisplayContainer() {
             id={product.id}
             name={product.name}
             price={product.price}
-            img={product.img}
+            // img={product.img}
             description={product.description}
           />
         ))}

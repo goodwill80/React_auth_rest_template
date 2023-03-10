@@ -36,7 +36,7 @@ function ProductEditForm() {
             onChange={handleFormChange}
           />
         </div>
-        <div className="mb-6">
+        {/* <div className="mb-6">
           <label className="font-bold pl-2" htmlFor="brand">
             Brand
           </label>
@@ -49,7 +49,7 @@ function ProductEditForm() {
             value={form.brand}
             onChange={handleFormChange}
           />
-        </div>
+        </div> */}
 
         <div className="mb-6">
           <label className="font-bold pl-2" htmlFor="price">

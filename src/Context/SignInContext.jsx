@@ -10,11 +10,13 @@ import {
   onAuthStateChanged, // event listener for auth response, can be used for storing token in in-memory
 } from 'firebase/auth';
 import { auth } from '../Configuraation/Firebase'; // Instance of FB config with your credentials from firebase file - in gitignore
+import axios from 'axios';
 
 const SigninContext = createContext();
 
 function SignInContextProvider({ children }) {
   const [user, setUser] = useState({});
+  const [products, setProducts] = useState([]);
 
   // 1. Sign in with Google Popout
   const googleSigninWithPopout = () => {
@@ -60,6 +62,21 @@ function SignInContextProvider({ children }) {
     };
   }, []);
 
+  // Get Products from springboot api
+  const getProductsFromApi = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/products');
+      console.log(response.data);
+      setProducts(response.data);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  useEffect(() => {
+    getProductsFromApi();
+  }, []);
+
   const ctx = {
     user,
     googleSigninWithPopout,
@@ -68,6 +85,7 @@ function SignInContextProvider({ children }) {
     createUserWithPwAndEmail,
     signInUserWithPwAndEmail,
     signout,
+    products,
   };
 
   return (

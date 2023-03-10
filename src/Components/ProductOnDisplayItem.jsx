@@ -10,7 +10,7 @@ function ProductOnDisplayItem({ id, name, price, img, description }) {
           <div className="flex justify-between">
             <Link to={`/products/${id}`}>
               <img
-                src={img}
+                src="https://images2.imgbox.com/fb/3d/O4TPmhlt_o.png"
                 alt={name}
                 className="w-[250px] h-[200px] shadow-xl"
               />

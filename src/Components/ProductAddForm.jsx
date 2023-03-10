@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 function ProductAddForm() {
   const [form, setForm] = useState({
     name: '',
-    brand: '',
     price: '',
     description: '',
   });
@@ -12,8 +12,15 @@ function ProductAddForm() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  // Add products from springboot api
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8080/products', form);
+      console.log(response);
+    } catch (e) {
+      console.log(e.message);
+    }
   };
 
   return (
@@ -36,7 +43,7 @@ function ProductAddForm() {
             onChange={handleFormChange}
           />
         </div>
-        <div className="mb-6">
+        {/* <div className="mb-6">
           <label className="font-bold pl-2" htmlFor="brand">
             Brand
           </label>
@@ -49,7 +56,7 @@ function ProductAddForm() {
             value={form.brand}
             onChange={handleFormChange}
           />
-        </div>
+        </div> */}
 
         <div className="mb-6">
           <label className="font-bold pl-2" htmlFor="price">
