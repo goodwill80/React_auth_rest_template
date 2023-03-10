@@ -55,12 +55,14 @@ function Navbar() {
               <Link to="/">Log in</Link>
             </>
           )}
-          <div className="relative">
-            <RiShoppingCartLine size={25} />
-            <div className="bg-green-600 absolute rounded-xl px-2 py-1 top-0 left-5">
-              <p className="text-white text-xs">0</p>
+          <Link to="/cart">
+            <div className="relative">
+              <RiShoppingCartLine size={25} />
+              <div className="bg-green-600 absolute rounded-xl px-2 py-1 top-0 left-5">
+                <p className="text-white text-xs">0</p>
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </nav>

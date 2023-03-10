@@ -1,7 +1,7 @@
 import React from 'react';
 
 function cartSummaryContainer() {
-  return <div></div>;
+  return <div>CartItems Container</div>;
 }
 
 export default cartSummaryContainer;

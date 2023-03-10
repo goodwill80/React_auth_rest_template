@@ -16,6 +16,7 @@ const SigninContext = createContext();
 
 function SignInContextProvider({ children }) {
   const [user, setUser] = useState({});
+  const [cart, setCart] = useState({});
   const [products, setProducts] = useState([]);
 
   // 1. Sign in with Google Popout
@@ -73,8 +74,26 @@ function SignInContextProvider({ children }) {
     }
   };
 
+  const getCartSummary = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/carts/summary', {
+        headers: {
+          user_id: 1,
+        },
+      });
+      console.log(response);
+      setCart(response.data);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
   useEffect(() => {
     getProductsFromApi();
+  }, []);
+
+  useEffect(() => {
+    getCartSummary();
   }, []);
 
   const ctx = {

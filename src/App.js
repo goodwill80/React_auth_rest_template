@@ -10,6 +10,7 @@ import AccountPage from './Pages/AccountPage';
 import AddProductPage from './Pages/AddProductPage';
 import EditProductPage from './Pages/EditProductPage';
 import SingleProductPage from './Pages/SingleProductPage';
+import CartSummaryPage from './Pages/CartSummaryPage';
 import ProtectedRoute from './Auth/ProtectedRoutes';
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/products/:id" element={<SingleProductPage />} />
             <Route path="/signup" element={<SignupPage />} />
-            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/cart" element={<CartSummaryPage />} />
             <Route
               path="/newproduct"
               element={
