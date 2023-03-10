@@ -1,5 +1,5 @@
 import ProductOnDisplayContainer from '../Components/ProductOnDisplayContainer';
-function ProductPage() {
+function ProductsPage() {
   return (
     <>
       <div className="flex flex-col min-h-screen h-[125vh] justify-center items-center mb-12">
@@ -14,4 +14,4 @@ function ProductPage() {
   );
 }
 
-export default ProductPage;
+export default ProductsPage;

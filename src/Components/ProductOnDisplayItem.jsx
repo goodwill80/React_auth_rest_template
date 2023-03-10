@@ -8,11 +8,13 @@ function ProductOnDisplayItem({ id, name, price, img, description }) {
       <div>
         <div className="shadow-lg w-[580px] min-h-[360px] h-auto p-8 rounded-lg flex flex-col">
           <div className="flex justify-between">
-            <img
-              src={img}
-              alt={name}
-              className="w-[250px] h-[200px] shadow-xl"
-            />
+            <Link to={`/products/${id}`}>
+              <img
+                src={img}
+                alt={name}
+                className="w-[250px] h-[200px] shadow-xl"
+              />
+            </Link>
             <div className="mr-16 w-[180px]">
               <h1 className="text-2xl font-bold">{name}</h1>
 
