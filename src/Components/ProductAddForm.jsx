@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useSignInGlobalContext } from '../Context/SignInContext';
+import { useNavigate } from 'react-router-dom';
 
 function ProductAddForm() {
+  const redirect = useNavigate();
+  const { getProductsFromApi } = useSignInGlobalContext();
   const [form, setForm] = useState({
     name: '',
     price: '',
@@ -18,6 +22,8 @@ function ProductAddForm() {
     try {
       const response = await axios.post('http://localhost:8080/products', form);
       console.log(response);
+      await getProductsFromApi();
+      redirect('/products');
     } catch (e) {
       console.log(e.message);
     }

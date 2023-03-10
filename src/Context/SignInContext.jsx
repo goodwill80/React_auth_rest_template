@@ -86,6 +86,7 @@ function SignInContextProvider({ children }) {
     signInUserWithPwAndEmail,
     signout,
     products,
+    getProductsFromApi,
   };
 
   return (
