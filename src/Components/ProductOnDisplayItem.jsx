@@ -2,7 +2,12 @@ import { useSignInGlobalContext } from '../Context/SignInContext';
 import { Link } from 'react-router-dom';
 
 function ProductOnDisplayItem({ id, name, price, img, description }) {
-  const { user } = useSignInGlobalContext();
+  const { user, deleteProduct } = useSignInGlobalContext();
+
+  const deleteHandler = () => {
+    deleteProduct();
+  };
+
   return (
     <div>
       <div>

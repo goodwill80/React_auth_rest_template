@@ -1,5 +1,4 @@
 import ProductOnDisplayItem from './ProductOnDisplayItem';
-import products from '../SeedData';
 import { useSignInGlobalContext } from '../Context/SignInContext';
 
 function ProductOnDisplayContainer() {
