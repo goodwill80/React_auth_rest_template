@@ -1,4 +1,8 @@
+import { HiOutlineArrowSmDown, HiOutlineArrowSmUp } from 'react-icons/hi';
+import { useSignInGlobalContext } from '../Context/SignInContext';
+
 function CartSummaryItem({ item }) {
+  const { addToCart } = useSignInGlobalContext();
   return (
     <>
       <tr>
@@ -19,8 +23,16 @@ function CartSummaryItem({ item }) {
           </div>
         </td>
         <td>
-          {item.quantity}
-          <br />
+          <div className="flex justify-start items-center">
+            <span className="cursor-pointer">
+              <HiOutlineArrowSmUp onClick={() => addToCart(item.product.id)} />
+            </span>
+            {item.quantity}
+            <span className="cursor-pointer">
+              <HiOutlineArrowSmDown />
+            </span>
+            <br />
+          </div>
         </td>
         <td>${item.product.price}</td>
         <td>${item.product.price * item.quantity}</td>
