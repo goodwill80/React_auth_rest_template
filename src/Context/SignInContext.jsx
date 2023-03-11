@@ -75,21 +75,6 @@ function SignInContextProvider({ children }) {
     }
   };
 
-  // Get cart summary api
-  const getCartSummary = async () => {
-    try {
-      const response = await axios.get('http://localhost:8080/carts/summary', {
-        headers: {
-          user_id: 1,
-        },
-      });
-      console.log(response);
-      setCart(response.data);
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-
   // delete product api
   const deleteProduct = async (id) => {
     try {
@@ -117,6 +102,35 @@ function SignInContextProvider({ children }) {
     }
   };
 
+  // Get cart summary api
+  const getCartSummary = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/carts/summary', {
+        headers: {
+          user_id: 1,
+        },
+      });
+      console.log(response);
+      setCart(response.data);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  // Clear cart by userid
+  const clearAllcartsByUser = async () => {
+    try {
+      await axios.delete('http://localhost:8080/carts', {
+        headers: {
+          user_id: 1,
+        },
+      });
+      setCart({});
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
   useEffect(() => {
     getProductsFromApi();
   }, []);
@@ -137,6 +151,8 @@ function SignInContextProvider({ children }) {
     getProductsFromApi,
     deleteProduct,
     editProduct,
+    getCartSummary,
+    clearAllcartsByUser,
     cart,
   };
 

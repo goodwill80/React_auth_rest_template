@@ -59,7 +59,7 @@ function Navbar() {
             <div className="relative">
               <RiShoppingCartLine size={25} />
               <div className="bg-green-600 absolute rounded-xl px-1 py-1 top-0 left-5">
-                <p className="text-white text-xs">{cart.quantity}</p>
+                <p className="text-white text-xs">{cart.quantity || 0} </p>
               </div>
             </div>
           </Link>

@@ -1,13 +1,19 @@
 import CartSummaryItem from './CartSummaryItem';
 import { useSignInGlobalContext } from '../Context/SignInContext';
+import { useNavigate } from 'react-router-dom';
 
 function CartSummaryContainer() {
-  const { cart } = useSignInGlobalContext();
+  const redirect = useNavigate();
+  const { cart, clearAllcartsByUser } = useSignInGlobalContext();
 
   const items = cart?.cartItems;
-  console.log(items);
 
-  if (items?.length <= 0) {
+  const deleteAllCartItems = (userid) => {
+    clearAllcartsByUser(userid);
+    redirect('/products');
+  };
+
+  if (items?.length <= 0 || items == null) {
     return (
       <div className="overflow-x-auto w-auto md:w-full mt-10">
         <p>There are no cart items</p>
@@ -51,7 +57,9 @@ function CartSummaryContainer() {
         </tfoot>
       </table>
       <div className="flex justify-center items-center py-10 px-4 space-x-4">
-        <button className="btn btn-warning btn-sm">Clear</button>
+        <button onClick={deleteAllCartItems} className="btn btn-warning btn-sm">
+          Clear
+        </button>
         <button className="btn btn-primary btn-sm">Checkout</button>
       </div>
     </div>
