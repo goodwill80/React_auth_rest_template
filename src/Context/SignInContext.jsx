@@ -90,8 +90,11 @@ function SignInContextProvider({ children }) {
 
   const deleteProduct = async (id) => {
     try {
-      const response = await axios.delete(`localhost:8080/products/${id}`);
+      const response = await axios.delete(
+        `http://localhost:8080/products/${id}`
+      );
       console.log(response);
+      getProductsFromApi();
     } catch (err) {
       console.log(err.message);
     }

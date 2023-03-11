@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 function ProductOnDisplayItem({ id, name, price, img, description }) {
   const { user, deleteProduct } = useSignInGlobalContext();
 
-  const deleteHandler = () => {
-    deleteProduct();
+  const deleteHandler = (id) => {
+    deleteProduct(id);
   };
 
   return (
@@ -42,7 +42,10 @@ function ProductOnDisplayItem({ id, name, price, img, description }) {
                     Edit
                   </button>
                 </Link>
-                <button className="btn btn-error btn-sm text-white">
+                <button
+                  onClick={() => deleteHandler(id)}
+                  className="btn btn-error btn-sm text-white"
+                >
                   Delete
                 </button>
               </>
