@@ -7,7 +7,7 @@ import { useSignInGlobalContext } from '../Context/SignInContext';
 
 function Navbar() {
   const redirect = useNavigate();
-  const { signout, user } = useSignInGlobalContext();
+  const { signout, user, cart } = useSignInGlobalContext();
 
   const logout = async () => {
     try {
@@ -58,8 +58,8 @@ function Navbar() {
           <Link to="/cart">
             <div className="relative">
               <RiShoppingCartLine size={25} />
-              <div className="bg-green-600 absolute rounded-xl px-2 py-1 top-0 left-5">
-                <p className="text-white text-xs">0</p>
+              <div className="bg-green-600 absolute rounded-xl px-1 py-1 top-0 left-5">
+                <p className="text-white text-xs">{cart.quantity}</p>
               </div>
             </div>
           </Link>

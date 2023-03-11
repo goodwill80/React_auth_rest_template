@@ -4,10 +4,10 @@ import { useSignInGlobalContext } from '../Context/SignInContext';
 function CartSummaryContainer() {
   const { cart } = useSignInGlobalContext();
 
-  const items = cart.cartItems;
+  const items = cart?.cartItems;
   console.log(items);
 
-  if (items.length <= 0) {
+  if (items?.length <= 0) {
     return (
       <div className="overflow-x-auto w-auto md:w-full mt-10">
         <p>There are no cart items</p>
@@ -15,10 +15,10 @@ function CartSummaryContainer() {
     );
   }
   return (
-    <div className="overflow-x-auto w-auto md:w-full mt-10">
+    <div className="overflow-x-auto w-auto md:w-[80%] flex flex-col">
       <div className="flex flex-col justify-center items-start py-6 pl-2">
         <h1 className="text-2xl font-bold">My List</h1>
-        <p>{items.length} items</p>
+        <p>{items?.length} items</p>
       </div>
 
       <table className="table w-full">
@@ -34,7 +34,7 @@ function CartSummaryContainer() {
         </thead>
         <tbody>
           {items.map((item, index) => (
-            <CartSummaryItem item={item} />
+            <CartSummaryItem key={index} item={item} />
           ))}
         </tbody>
         {/* foot */}
@@ -50,6 +50,10 @@ function CartSummaryContainer() {
           </tr>
         </tfoot>
       </table>
+      <div className="flex justify-center items-center py-10 px-4 space-x-4">
+        <button className="btn btn-warning btn-sm">Clear</button>
+        <button className="btn btn-primary btn-sm">Checkout</button>
+      </div>
     </div>
   );
 }
