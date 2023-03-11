@@ -7,7 +7,6 @@ function ProductEditForm() {
   const { products, editProduct } = useSignInGlobalContext();
   const { id } = useParams();
   const prod = products.find((product) => product.id == id);
-  console.log(prod);
 
   const [form, setForm] = useState({
     name: prod.name,

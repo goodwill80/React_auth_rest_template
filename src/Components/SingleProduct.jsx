@@ -4,7 +4,7 @@ import products from '../SeedData';
 import { useSignInGlobalContext } from '../Context/SignInContext';
 
 function SingleProduct({ id }) {
-  const { user, cart } = useSignInGlobalContext();
+  const { user, cart, addToCart } = useSignInGlobalContext();
 
   const prod = products.find((p) => p.id === id);
   const item = cart?.cartItems?.find(
@@ -12,10 +12,13 @@ function SingleProduct({ id }) {
   );
   const actualQty = item ? item.quantity : 0;
   const [quantity, setQuantity] = useState(actualQty);
-  console.log(actualQty);
 
   const handleOnchange = (e) => {
     setQuantity(() => e.target.value);
+  };
+
+  const add = (qty) => {
+    addToCart(id, 1, qty);
   };
 
   return (
@@ -71,7 +74,10 @@ function SingleProduct({ id }) {
                       <option key={index}>{index}</option>
                     ))}
                 </select>
-                <button className="btn btn-secondary btn-xs w-[60px]">
+                <button
+                  onClick={() => add(quantity)}
+                  className="btn btn-secondary btn-xs w-[60px]"
+                >
                   {quantity === 0 ? 'Add' : 'Update'}
                 </button>
               </div>

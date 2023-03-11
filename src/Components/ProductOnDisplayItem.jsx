@@ -2,10 +2,14 @@ import { useSignInGlobalContext } from '../Context/SignInContext';
 import { Link } from 'react-router-dom';
 
 function ProductOnDisplayItem({ id, name, price, img, description }) {
-  const { user, deleteProduct } = useSignInGlobalContext();
+  const { user, deleteProduct, addToCart } = useSignInGlobalContext();
 
   const deleteHandler = (id) => {
     deleteProduct(id);
+  };
+
+  const add = () => {
+    addToCart(id, 1);
   };
 
   return (
@@ -36,7 +40,9 @@ function ProductOnDisplayItem({ id, name, price, img, description }) {
           <div className="flex gap-2 items-baseline mt-3 justify-end">
             {user ? (
               <>
-                <button className="btn btn-sm text-white">Add to Cart</button>
+                <button onClick={add} className="btn btn-sm text-white">
+                  Add to Cart
+                </button>
                 <Link to={`/product/edit/${id}`}>
                   <button className="btn btn-warning btn-sm text-white">
                     Edit
@@ -50,7 +56,9 @@ function ProductOnDisplayItem({ id, name, price, img, description }) {
                 </button>
               </>
             ) : (
-              <button className="btn btn-sm text-white">Add to Cart</button>
+              <button onClick={add} className="btn btn-sm text-white">
+                Add to Cart
+              </button>
             )}
           </div>
         </div>

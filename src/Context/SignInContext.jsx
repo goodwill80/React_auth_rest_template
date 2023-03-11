@@ -117,6 +117,25 @@ function SignInContextProvider({ children }) {
     }
   };
 
+  // Add to cart api
+  const addToCart = async (productId, userId = 1, qty = '') => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/carts/add/${productId}?quantity=${qty}`,
+        {},
+        {
+          headers: {
+            user_id: userId,
+          },
+        }
+      );
+      console.log(response);
+      getCartSummary();
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
   // Clear cart by userid
   const clearAllcartsByUser = async () => {
     try {
@@ -153,6 +172,7 @@ function SignInContextProvider({ children }) {
     editProduct,
     getCartSummary,
     clearAllcartsByUser,
+    addToCart,
     cart,
   };
 
