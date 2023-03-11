@@ -1,10 +1,22 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import products from '../SeedData';
 import { useSignInGlobalContext } from '../Context/SignInContext';
 
 function SingleProduct({ id }) {
-  const { user } = useSignInGlobalContext();
+  const { user, cart } = useSignInGlobalContext();
+
   const prod = products.find((p) => p.id === id);
+  const item = cart?.cartItems?.find(
+    (cartItem) => Number(cartItem.product.id) === Number(id)
+  );
+  const actualQty = item ? item.quantity : 0;
+  const [quantity, setQuantity] = useState(actualQty);
+  console.log(actualQty);
+
+  const handleOnchange = (e) => {
+    setQuantity(() => e.target.value);
+  };
 
   return (
     <div className="px-20 min-h-[73vh] h-auto">
@@ -18,8 +30,8 @@ function SingleProduct({ id }) {
         <div className="md:col-span-2 m-auto shadow-2xl rounded-md">
           <img
             className="h-[500px] w-[550px] rounded-md"
-            src={prod.img}
-            alt={prod.name}
+            src="https://images2.imgbox.com/4f/3d/WN3GvciF_o.png"
+            alt={prod?.name}
           />
         </div>
         {/* 2nd Column */}
@@ -30,15 +42,15 @@ function SingleProduct({ id }) {
             </li>
             <div className="mb-6">
               <li className="font-bold">Name:</li>
-              <span className="pl-2">{prod.name}</span>
+              <span className="pl-2">{prod?.name}</span>
             </div>
             <div className="mb-6">
               <li className="font-bold">Price: </li>
-              <span className="pl-2">${prod.price}</span>
+              <span className="pl-2">${prod?.price}</span>
             </div>
             <div className="mb-6">
               <li className="font-bold">Description: </li>
-              <span className="pl-2">{prod.description}</span>
+              <span className="pl-2">{prod?.description}</span>
             </div>
 
             <div className="flex flex-col mb-4 space-x-4">
@@ -50,15 +62,17 @@ function SingleProduct({ id }) {
                   className="w-18 border border-green-300 px-2 text-sm"
                   id="number-dd"
                   name="number"
+                  value={quantity}
+                  onChange={handleOnchange}
                 >
-                  {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((num, index) => (
-                    <option key={index} value={num}>
-                      {num}
-                    </option>
-                  ))}
+                  {Array(30)
+                    .fill(true)
+                    .map((num, index) => (
+                      <option key={index}>{index}</option>
+                    ))}
                 </select>
-                <button className="btn btn-secondary btn-xs w-[50px]">
-                  Add
+                <button className="btn btn-secondary btn-xs w-[60px]">
+                  {quantity === 0 ? 'Add' : 'Update'}
                 </button>
               </div>
             </div>
