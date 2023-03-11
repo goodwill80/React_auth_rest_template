@@ -1,26 +1,34 @@
 import { useState } from 'react';
-
+import { useParams, useNavigate } from 'react-router-dom';
+import { useSignInGlobalContext } from '../Context/SignInContext';
 
 function ProductEditForm() {
+  const redirect = useNavigate();
+  const { products, editProduct } = useSignInGlobalContext();
+  const { id } = useParams();
+  const prod = products.find((product) => product.id == id);
+  console.log(prod);
+
   const [form, setForm] = useState({
-    name: '',
-    brand: '',
-    price: '',
-    description: '',
+    name: prod.name,
+    price: prod.price,
+    description: prod.description,
   });
 
   const handleFormChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, id, product) => {
     e.preventDefault();
+    editProduct(id, product);
+    redirect('/products');
   };
 
   return (
     <div>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={(e) => handleSubmit(e, id, form)}
         className="bg-white shadow-lg rounded px-8 pt-6 pb-4 mb-12"
       >
         <div className="mb-6">
@@ -33,7 +41,7 @@ function ProductEditForm() {
             name="name"
             type="text"
             placeholder="Product name"
-            value={form.name}
+            value={form?.name}
             onChange={handleFormChange}
           />
         </div>
@@ -62,7 +70,7 @@ function ProductEditForm() {
             name="price"
             type="number"
             placeholder="$Price"
-            value={form.price}
+            value={form?.price}
             onChange={handleFormChange}
           />
         </div>
@@ -77,7 +85,7 @@ function ProductEditForm() {
             name="description"
             type="text"
             placeholder="Description"
-            value={form.description}
+            value={form?.description}
             onChange={handleFormChange}
           />
         </div>

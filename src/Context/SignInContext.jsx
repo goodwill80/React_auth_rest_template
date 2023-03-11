@@ -63,6 +63,7 @@ function SignInContextProvider({ children }) {
     };
   }, []);
 
+  // Todo - to refactor into new context
   // Get Products from springboot api
   const getProductsFromApi = async () => {
     try {
@@ -74,6 +75,7 @@ function SignInContextProvider({ children }) {
     }
   };
 
+  // Get cart summary api
   const getCartSummary = async () => {
     try {
       const response = await axios.get('http://localhost:8080/carts/summary', {
@@ -88,10 +90,25 @@ function SignInContextProvider({ children }) {
     }
   };
 
+  // delete product api
   const deleteProduct = async (id) => {
     try {
       const response = await axios.delete(
         `http://localhost:8080/products/${id}`
+      );
+      console.log(response);
+      getProductsFromApi();
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  // Edit product api
+  const editProduct = async (id, product) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/products/${id}`,
+        product
       );
       console.log(response);
       getProductsFromApi();
@@ -119,6 +136,7 @@ function SignInContextProvider({ children }) {
     products,
     getProductsFromApi,
     deleteProduct,
+    editProduct,
     cart,
   };
 

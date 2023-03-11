@@ -26,7 +26,7 @@ function CartSummaryItem({ item }) {
         <td>${item.product.price * item.quantity}</td>
         <th>
           <div className="space-x-2">
-            <button className="btn btn-info btn-xs text-white">+</button>
+            <button className="btn btn-info btn-xs text-white">Update</button>
             <button className="btn btn-error text-white btn-xs">X</button>
           </div>
         </th>
