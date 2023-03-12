@@ -78,7 +78,7 @@ function SingleProduct({ id }) {
                   onClick={() => add(quantity)}
                   className="btn btn-secondary btn-xs w-[60px]"
                 >
-                  {quantity === 0 ? 'Add' : 'Update'}
+                  {actualQty === 0 ? 'Add' : 'Update'}
                 </button>
               </div>
             </div>
