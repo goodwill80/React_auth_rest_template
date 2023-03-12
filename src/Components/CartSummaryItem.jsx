@@ -2,7 +2,7 @@ import { HiOutlineArrowSmDown, HiOutlineArrowSmUp } from 'react-icons/hi';
 import { useSignInGlobalContext } from '../Context/SignInContext';
 
 function CartSummaryItem({ item }) {
-  const { addToCart } = useSignInGlobalContext();
+  const { addToCart, decrementCart, deleteCart } = useSignInGlobalContext();
   return (
     <>
       <tr>
@@ -29,7 +29,9 @@ function CartSummaryItem({ item }) {
             </span>
             {item.quantity}
             <span className="cursor-pointer">
-              <HiOutlineArrowSmDown />
+              <HiOutlineArrowSmDown
+                onClick={() => decrementCart(item.product.id)}
+              />
             </span>
             <br />
           </div>
@@ -38,8 +40,12 @@ function CartSummaryItem({ item }) {
         <td>${item.product.price * item.quantity}</td>
         <th>
           <div className="space-x-2">
-            <button className="btn btn-info btn-xs text-white">Update</button>
-            <button className="btn btn-error text-white btn-xs">X</button>
+            <button
+              onClick={() => deleteCart(item.id)}
+              className="btn btn-error text-white btn-xs"
+            >
+              X
+            </button>
           </div>
         </th>
       </tr>

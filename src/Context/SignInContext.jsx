@@ -136,6 +136,32 @@ function SignInContextProvider({ children }) {
     }
   };
 
+  // Decrement cart api
+  const decrementCart = async (productId, userId = 1) => {
+    const cartItem = cart.cartItems.find(
+      (item) => item.product.id === productId
+    );
+
+    if (cartItem.quantity === 1) {
+      deleteCart(cartItem.id);
+      return;
+    }
+    try {
+      await axios.post(
+        `http://localhost:8080/carts/decrement/${productId}`,
+        {},
+        {
+          headers: {
+            user_id: userId,
+          },
+        }
+      );
+      getCartSummary();
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   // Clear cart by userid
   const clearAllcartsByUser = async () => {
     try {
@@ -145,6 +171,37 @@ function SignInContextProvider({ children }) {
         },
       });
       setCart({});
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  // Delete cart by ID
+  const deleteCart = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8080/carts/delete?cartid=${id}`);
+
+      const newCartItems = cart.cartItems.filter((item) => item.id !== id);
+      // To reduce and calculate new qty and total
+      const { qty, cost } = newCartItems.reduce(
+        (a, b) => {
+          a.qty += b.quantity;
+          a.cost += b.cost;
+          return a;
+        },
+        {
+          qty: 0,
+          cost: 0,
+        }
+      );
+      const newCart = {
+        ...cart,
+        quantity: qty,
+        cost: Number(cost),
+        cartItems: [...newCartItems],
+      };
+      setCart(newCart);
+      cart.getCartSummary();
     } catch (e) {
       console.log(e.message);
     }
@@ -173,6 +230,8 @@ function SignInContextProvider({ children }) {
     getCartSummary,
     clearAllcartsByUser,
     addToCart,
+    decrementCart,
+    deleteCart,
     cart,
   };
 

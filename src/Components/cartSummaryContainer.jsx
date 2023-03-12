@@ -1,10 +1,12 @@
 import CartSummaryItem from './CartSummaryItem';
+import { useEffect, useState } from 'react';
 import { useSignInGlobalContext } from '../Context/SignInContext';
 import { useNavigate } from 'react-router-dom';
 
 function CartSummaryContainer() {
   const redirect = useNavigate();
   const { cart, clearAllcartsByUser } = useSignInGlobalContext();
+  const [copyItems, setCopyItems] = useState([]);
 
   const items = cart?.cartItems;
 
@@ -13,7 +15,11 @@ function CartSummaryContainer() {
     redirect('/products');
   };
 
-  if (items?.length <= 0 || items == null) {
+  useEffect(() => {
+    setCopyItems(cart?.cartItems);
+  }, [cart.cartItems]);
+
+  if (cart?.cartItems <= 0 || items == null) {
     return (
       <div className="overflow-x-auto w-auto md:w-full mt-10">
         <p>There are no cart items</p>
@@ -39,9 +45,11 @@ function CartSummaryContainer() {
           </tr>
         </thead>
         <tbody>
-          {items.map((item, index) => (
-            <CartSummaryItem key={index} item={item} />
-          ))}
+          {copyItems
+            .sort((a, b) => a.quantity - b.quantity)
+            .map((item, index) => (
+              <CartSummaryItem key={index} item={item} />
+            ))}
         </tbody>
         {/* foot */}
         <tfoot>
